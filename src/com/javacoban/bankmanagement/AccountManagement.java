@@ -17,6 +17,12 @@ public class AccountManagement {
         return accountList;
     }
     public void addAccount(Account account) {
+        for (Account acc : accountList){
+            if (acc.getID()==account.getID()){
+                System.out.println("Account already exists, please re-enter");
+                return;
+            }
+        }
         accountList.add(account);
     }
 

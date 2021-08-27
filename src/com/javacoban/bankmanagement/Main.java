@@ -20,18 +20,22 @@ public class Main {
             switch (number) {
 
                 case 1:
-                    Account acc1 = inputInfor();
+                    Account acc1 = inputInfo();
                     accountManagement.addAccount(acc1);
                     break;
                 case 2:
+                    int count=0;
                     System.out.println("Enter ID to delete: ");
                     long idDelete = scanner.nextInt();
-                    for (Account acc2: accountList){
-                        if (acc2.getID()==idDelete){
-                            accountManagement.removeAccount(acc2);
-                        }
+                    Account acc2 = accountManagement.searchByID(idDelete);
+                    if (acc2 != null) {
+                        accountManagement.removeAccount(acc2);
+                        System.out.println("Delete successful accounts!");
                     }
-                    System.out.println("deleted successfully");
+                    else {
+                            System.out.println("No account found!!");
+                    }
+
                     break;
                 case 3:
                     System.out.println("Enter the ID to find");
@@ -49,24 +53,28 @@ public class Main {
                     long idAddMoney = scanner.nextLong();
                     System.out.println("Enter the amount to load");
                     double moneyAdd = scanner.nextDouble();
-                    for (Account acc5 : accountList){
-                        if (acc5.getID()==idAddMoney){
-                            acc5.addMoney(moneyAdd);
-                        }
+                    Account acc5 = accountManagement.searchByID(idAddMoney);
+                    if (acc5 != null){
+                        acc5.addMoney(moneyAdd);
+                        System.out.println("extra money success");
                     }
-                    System.out.println("extra money success");
+                    else {
+                        System.out.println("No account found!!");
+                    }
                     break;
                 case 6:
                     System.out.println("Select the account to withdraw money: ");
                     long idWithdrawMoney = scanner.nextLong();
                     System.out.println("Enter the amount to withdraw");
                     double moneyWithdraw = scanner.nextDouble();
-                    for (Account acc6 : accountList){
-                        if (acc6.getID()==idWithdrawMoney){
-                            acc6.withdraw(moneyWithdraw);
-                        }
+                    Account acc6 = accountManagement.searchByID(idWithdrawMoney);
+                    if (acc6 != null){
+                        acc6.withdraw(moneyWithdraw);
+                        System.out.println("withdrew money successfully");
                     }
-                    System.out.println("You have withdrawn : "+moneyWithdraw);
+                    else {
+                        System.out.println("No account found!!");
+                    }
                     break;
                 case 7:
                     System.out.println("Enter money transfer ID: ");
@@ -75,12 +83,18 @@ public class Main {
                     long idReceiving = scanner.nextLong();
                     System.out.println("Enter the amount to transfer: ");
                     double amountTransfer = scanner.nextDouble();
-                    Account accAccommodation = accountManagement.searchByID(idReceiving);
-                    for (Account acc7 : accountList){
-                        if(acc7.getID()==idTransfer && acc7.getID()!=idReceiving){
-                            acc7.transfer(amountTransfer,accAccommodation);
-                            System.out.println("money transfer successfully");
-                        }
+                    Account accReceiver = accountManagement.searchByID(idReceiving);
+                    if (accReceiver==null){
+                        System.out.println("Account does not exist, please operate again!");
+                        break;
+                    }
+                    Account accTransfer = accountManagement.searchByID(idTransfer);
+                    if (accTransfer!=null){
+                        accTransfer.transfer(amountTransfer,accReceiver);
+                        System.out.println("money transfer successfully!");
+                    }
+                    else {
+                        System.out.println("Account does not exist, please operate again!");
                     }
                     break;
                 case 8:
@@ -111,8 +125,8 @@ public class Main {
         System.out.println("9. Exist");
     }
 
-    public static Account inputInfor() {
-        System.out.println("Please input infor of an account: ");
+    public static Account inputInfo() {
+        System.out.println("Please input info of an account: ");
         System.out.print(" ID: ");
         long ID = scanner.nextLong();
         scanner.nextLine();
