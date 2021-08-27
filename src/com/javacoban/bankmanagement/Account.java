@@ -37,14 +37,21 @@ public class Account {
     }
 
     public void withdraw(double amountWithdraw) {
+        if (this.amount - amountWithdraw < 0) {
+            System.out.println("The amount in the account is not enough, please operate again!");
+            return;
+        }
         this.amount -= amountWithdraw;
     }
-
     public void expires() {
         this.amount = this.amount + this.amount * INTEREST;
     }
 
     public void transfer(double amount, Account account ) {
+        if(this.amount-amount<0){
+            System.out.println("The amount in the account is not enough, please operate again!");
+            return;
+        }
         this.amount = this.amount - amount;
         double newAmount = account.getAmount() + amount;
         account.setAmount(newAmount);
