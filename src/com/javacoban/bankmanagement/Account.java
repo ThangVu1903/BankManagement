@@ -12,6 +12,9 @@ package com.javacoban.bankmanagement;
 //
 
 
+import java.util.Comparator;
+import java.util.Objects;
+
 public class Account {
     public static final float INTEREST = 0.035f;
 
@@ -57,6 +60,19 @@ public class Account {
         account.setAmount(newAmount);
     }
 
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Account account = (Account) o;
+        return ID == account.ID && Double.compare(account.amount, amount) == 0 && Objects.equals(accountName, account.accountName);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(ID, accountName, amount);
+    }
+
     public long getID() {
         return ID;
     }
@@ -85,5 +101,12 @@ public class Account {
         return "[ID: " + ID + ", accountName: "  + accountName + ", amount: " + amount + "]";
 
         // [ID: 1, accountName: hauvu, amount: 10000000]
+    }
+    public static class arrangeMoney implements Comparator<Account> {
+        @Override
+        public int compare(Account o1, Account o2) {
+            double checkAmount = o2.getAmount() - o1.getAmount();
+            return (int) checkAmount ;
+        }
     }
 }

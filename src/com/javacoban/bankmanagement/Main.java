@@ -6,8 +6,7 @@ package com.javacoban.bankmanagement;
 //        + display: sout (toString)
 //        + Menu : show menu
 
-import java.util.ArrayList;
-import java.util.Scanner;
+import java.util.*;
 
 public class Main {
     static Scanner scanner = new Scanner(System.in);
@@ -98,9 +97,16 @@ public class Main {
                     }
                     break;
                 case 8:
-                    showMenu();
+                    Collections.sort(accountList, new Account.arrangeMoney());
+                    System.out.println("Account after arranging: ");
+                    for (Account acc8: accountList) {
+                        display(acc8);
+                    }
                     break;
                 case 9:
+                    showMenu();
+                    break;
+                case 10:
                     System.out.println("Thanks for using Agribank");
                     System.out.println("---------GOODBYE------------");
                     return;
@@ -121,8 +127,9 @@ public class Main {
         System.out.println("5. Add money for an account");
         System.out.println("6. Withdraw money from an account");
         System.out.println("7. Transfer money");
-        System.out.println("8. Show menu");
-        System.out.println("9. Exist");
+        System.out.println("8. Arrange account according to graduation money");
+        System.out.println("9. Show menu");
+        System.out.println("10. Exist");
     }
 
     public static Account inputInfo() {
@@ -140,5 +147,9 @@ public class Main {
         System.out.println(account.toString());
     }
 
-
 }
+
+
+
+
+
