@@ -9,6 +9,8 @@ package com.javacoban.bankmanagement;
 //        + searchAccount
 
 import java.util.ArrayList;
+import java.util.Comparator;
+import java.util.Objects;
 
 public class AccountManagement {
     private ArrayList<Account> accountList = new ArrayList<>();
@@ -16,9 +18,10 @@ public class AccountManagement {
     public ArrayList<Account> getList() {
         return accountList;
     }
+
     public void addAccount(Account account) {
         for (Account acc : accountList){
-            if (acc.getID()==account.getID()){
+            if (acc.equals(account)==true){
                 System.out.println("Account already exists, please re-enter");
                 return;
             }
@@ -39,6 +42,8 @@ public class AccountManagement {
         }
         return null;
     }
+
+
 
 
 }
